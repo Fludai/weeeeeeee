@@ -1,0 +1,153 @@
+    local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+    local Window = OrionLib:MakeWindow({Name = "Ooc Hub | ⚡Clicker Simulator!", HidePremium = false, IntroEnabled = false,IntroText = "Ooc Hub", SaveConfig = true, ConfigFolder = "OocHub"})
+    OrionLib:MakeNotification({
+        Name = "Thanks For Using Ooc Hub Join Our Discord",
+        Content = "https://discord.gg/DzeDGawyfw",
+        Image = "rbxassetid://4483345998",
+        Time = 5
+    })
+
+    --values
+    getgenv().autotap = true 
+    getgenv().claimgifts = true
+    getgenv().autorebirth = true
+    -- getgenv().buyeggs = true
+    -- getgenv().selecteggs = "Basic Egg"
+
+    --functions
+    function tapper()
+        while autotap == true do 
+            local args = {
+                    [1] = {
+                        ["manual"] = {
+                    ["1"] = 1}}}
+            game:GetService("ReplicatedStorage").Clickerr:InvokeServer(unpack(args))
+            game:GetService("ReplicatedStorage").Events.Client.emitClicks:FireServer()
+        task.wait(0.5)
+    end
+end
+
+
+
+function gifta()
+    while claimgifts == true do
+           game:GetService("ReplicatedStorage").Events.Client.collectGifts:FireServer()
+        task.wait(0.5)
+    end
+end
+
+
+function rebirtha()
+    while autorebirth == true do 
+        local args = {
+                    [1] = 1,
+                    [2] = false,
+                    [3] = false}
+                game:GetService("ReplicatedStorage").Events.Client.requestRebirth:FireServer(unpack(args))
+        task.wait(0.5)
+    end
+end 
+  
+-- function eggopena1()
+--     while buyeggs == true do 
+--         local args = {
+--                 [1] = workspace.Eggs.Basic,
+--                         [2] = false,
+--                 [3] = false}
+--             game:GetService("ReplicatedStorage").Events.Client.purchaseEgg2:InvokeServer(unpack(args))
+--         task.wait(100000000000000000)
+--     end
+-- end
+
+-- function eggopena2()
+--     while buyeggs == true do 
+--         local args = {
+--                 [1] = workspace.Eggs.Earth,
+--                         [2] = false,
+--                 [3] = false}
+--             game:GetService("ReplicatedStorage").Events.Client.purchaseEgg2:InvokeServer(unpack(args))
+--         task.wait(100000000000000000)
+--     end
+-- end
+
+
+    --tabs 
+    local FarmTab = Window:MakeTab({
+        Name = "Auto Farm",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+    
+    local EggTab = Window:MakeTab({
+        Name = "Eggs",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+    local MiscTab = Window:MakeTab({
+        Name = "Misc",
+        Icon = "rbxassetid://4483345998",
+	    PremiumOnly = false
+    })
+
+
+
+
+    --toggles
+    FarmTab:AddToggle({
+        Name = "Auto Click",
+        Default = false,
+        Callback = function(Value)
+            autotap = Value
+            tapper()
+        end    
+    })
+
+    FarmTab:AddToggle({
+        Name = "Auto Rebirth",
+        Default = false,
+        Callback = function(Value)
+            autorebirth = Value
+            rebirtha()
+        end    
+    })
+
+    EggTab:AddToggle({
+        Name = "Not Added",
+        Default = false,
+        Callback = function(Value)
+            -- buyeggs = Value
+            -- eggopena1()
+        end    
+    })
+
+    MiscTab:AddToggle({
+        Name = "Claim Gifts",
+        Default = false,
+        Callback = function(Value)
+            claimgifts = Value
+            gifta()
+        end    
+    })
+
+
+
+    -- EggTab:AddToggle({
+    --     Name = "Buy Earth Egg",
+    --     Default = false,
+    --     Callback = function(Value)
+    --         buyeggs = Value
+    --         eggopena2()
+    --     end    
+    -- })
+--dropdowns
+
+
+
+
+--buttons
+
+
+
+end
+    OrionLib:Init()
